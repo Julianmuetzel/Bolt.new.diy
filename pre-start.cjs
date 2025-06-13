@@ -1,8 +1,10 @@
 const { execSync } = require('child_process');
 
-// Get git hash with fallback
+// Get git hash with fallback - check if git command exists first
 const getGitHash = () => {
   try {
+    // Check if git command is available
+    execSync('which git', { stdio: 'ignore' });
     return execSync('git rev-parse --short HEAD').toString().trim();
   } catch {
     return 'no-git-info';
